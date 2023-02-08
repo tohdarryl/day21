@@ -3,10 +3,11 @@ package sg.edu.nus.iss.workshop21.controller;
 import java.util.List;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
-
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +26,7 @@ public class CustRestController {
     @Autowired
     CustomersRepo custRepo;
 
-    @GetMapping("api/customers")
+    @GetMapping(path = "api/customers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Customers>> getCustomers(@RequestParam(defaultValue="5") Integer limit
         , @RequestParam(defaultValue = "0") Integer offset){
             List<Customers> cList = custRepo.findAll(limit, offset);
@@ -56,7 +57,10 @@ public class CustRestController {
         }
 
         Orders[] o = custRepo.findOrdersByCustId(id);
-        return new ResponseEntity<>(o,HttpStatus.OK);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(o);
        
 }
 }
