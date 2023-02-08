@@ -28,9 +28,14 @@ public class CustomersRepo {
         return jdbcTemplate.queryForObject(selectByIdSQL, BeanPropertyRowMapper.newInstance(Customers.class), id);
     }
 
-    public Orders[] findOrdersByCustId(Integer id){
+    // public Orders[] findOrdersByCustId(Integer id){
+    //     List<Orders> oList = jdbcTemplate.query(selectOrdersByCustId, BeanPropertyRowMapper.newInstance(Orders.class), id);
+    //     Orders[] o = new Orders[oList.size()];  
+    //     return oList.toArray(o);
+    // }
+
+    public List<Orders> findOrdersByCustId(Integer id){
         List<Orders> oList = jdbcTemplate.query(selectOrdersByCustId, BeanPropertyRowMapper.newInstance(Orders.class), id);
-        Orders[] o = new Orders[oList.size()];  
-        return oList.toArray(o);
+        return oList;
     }
 }

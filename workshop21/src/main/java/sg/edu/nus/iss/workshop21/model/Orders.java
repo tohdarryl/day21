@@ -2,6 +2,8 @@ package sg.edu.nus.iss.workshop21.model;
 
 import java.sql.Date;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,4 +33,15 @@ public class Orders {
     //use Byte for tinyint (MySQL type)
     private Byte taxStatusId;
     private Byte statusId;
+
+    public JsonObject toJSON() {
+        return Json.createObjectBuilder()
+                .add("order_id", getId())
+                .add("order_date", getOrderDate() != null ? getOrderDate().toString() : "")
+                .add("shipped_date", getShippedDate() != null ? getShippedDate().toString() : "")
+                .add("ship_name", getShipName())
+                .add("shipping_fee", getShippingFee())
+                .add("customer_id", getCustomerId())
+                .build();
+    }
 }
