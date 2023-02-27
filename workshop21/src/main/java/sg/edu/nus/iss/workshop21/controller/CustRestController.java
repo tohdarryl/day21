@@ -76,7 +76,7 @@ public class CustRestController {
         // Build the result
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         for (Orders o : oList)
-        // Add Convert 'Orders' JavaObject to JsonObject and add into JsonArray
+        // Add + Convert 'Orders' JavaObject to JsonObject and add into JsonArray
             arrayBuilder.add(o.toJSON());
         // Build JsonArray
         result = arrayBuilder.build();

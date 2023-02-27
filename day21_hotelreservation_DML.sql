@@ -89,8 +89,9 @@ union
 select 'Feb 2023' as period, room_id, count(*) cnt
 from reservation
 where start_date between '2023-02-01' and '2023-02-28'
-group by room_id
-order by cnt desc;
+group by room_id;
+
+
 
 select 'Mar 2023' as period, room_id, count(*) cnt
 from reservation
@@ -139,3 +140,43 @@ delete from customer2;
 create table customer3 as select * from customer;
 select * from customer3;
 */
+
+alter table customer2 auto_increment = 0;
+
+insert into employee(first_name, last_name, salary) values ('Darryl', 'Toh', '5500');
+insert into employee(first_name, last_name, salary) values ('Justin', 'Beiwer', '5500');
+insert into employee(first_name, last_name, salary) values ('Sam', 'Smith', '5500');
+
+select * from employee;
+
+insert into dependant(employee_id, first_name, last_name, relationship, birth_date) values (1,'Koh', 'Jing Xiang', 'father', '2015-01-01');
+insert into dependant(employee_id, first_name, last_name, relationship, birth_date) values (2,'Hai', 'Jie','father', '2023-01-03');
+insert into dependant(employee_id, first_name, last_name, relationship, birth_date) values (3,'Tze', 'Chong','father', '2023-01-31');
+
+delete from dependant where id = 3;
+
+select e.id emp_id, e.first_name, e.last_name, e.salary,
+d.id dep_id, d.first_name, d.last_name, d.relationship, d.birth_date from employee e
+inner join dependant d
+on e.id = d.employee_id;
+
+create table rsvp (
+	id int not null auto_increment,
+    full_name varchar(150) not null,
+    email varchar(15) not null,
+    phone numeric(8),
+    confirmation_date date,
+    comments varchar(255),
+    constraint pk_rsvp_id primary key(id)
+);
+
+select * from rsvp;
+select * from rsvp where full_name like "%fred%";
+insert into rsvp(full_name, email, phone, confirmation_date, comments)
+values('fred perry', 'fred@gmail.com', 91179999, '2023-02-01', 'fred rsvp to A event');
+update rsvp 
+set full_name = 'fred', email = 'fred@g.com', phone = 99999998, confirmation_date = '2023=02-02', comments = 'fred rsvp - event A'
+where id = 1;
+
+select count(*) as cnt from rsvp;
+
